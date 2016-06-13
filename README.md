@@ -1,3 +1,0 @@
-# cloudtp-saucelabs
-
-Testing
