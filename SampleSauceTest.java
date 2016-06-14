@@ -6,15 +6,16 @@ import java.net.URL;
 
 public class SampleSauceTest {
 
-  public static final String USERNAME = "YOUR_USERNAME";
+  /*public static final String USERNAME = "YOUR_USERNAME";
   public static final String ACCESS_KEY = "YOUR_ACCESS_KEY";
-  public static final String URL = "http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:80/wd/hub";
+  public static final String URL = "http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:80/wd/hub";*/
 
   public static void main(String[] args) throws Exception {
 
     DesiredCapabilities caps = DesiredCapabilities.chrome();
     caps.setCapability("platform", "Windows XP");
     caps.setCapability("version", "43.0");
+
 
     WebDriver driver = new RemoteWebDriver(
             new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub",
@@ -26,7 +27,14 @@ public class SampleSauceTest {
 
     driver.get("https://saucelabs.com/test/guinea-pig");
     System.out.println("title of page is: " + driver.getTitle());
-
+    printSessionId();
     driver.quit();
   }
 }
+
+private void printSessionId() {
+ 
+    String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s",
+    (((RemoteWebDriver) driver).getSessionId()).toString(), "some job name");
+    System.out.println(message);
+} 
