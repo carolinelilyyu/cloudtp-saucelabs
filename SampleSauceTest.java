@@ -16,6 +16,7 @@ public class SampleSauceTest {
     caps.setCapability("platform", "Windows XP");
     caps.setCapability("version", "43.0");
 
+
     WebDriver driver = new RemoteWebDriver(
             new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub",
             desiredCapabilities);
@@ -26,7 +27,14 @@ public class SampleSauceTest {
 
     driver.get("https://saucelabs.com/test/guinea-pig");
     System.out.println("title of page is: " + driver.getTitle());
-
+    printSessionId();
     driver.quit();
   }
 }
+
+private void printSessionId() {
+ 
+    String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s",
+    (((RemoteWebDriver) driver).getSessionId()).toString(), "some job name");
+    System.out.println(message);
+} 
